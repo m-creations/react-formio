@@ -1,6 +1,6 @@
 {
   "name": "react-formio",
-  "version": "3.1.11",
+  "version": "3.1.11-mc1",
   "description": "React renderer for form.io forms.",
   "main": "lib/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "build": "babel ./src --ignore=*.spec.js --out-dir ./lib --presets es2015,react,stage-2",
     "lint": "eslint src",
     "watch": "babel ./src --watch --ignore=*.spec.js --out-dir ./lib --presets es2015,react,stage-2",
+    "tag": "VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]');git add -A; git commit -m \"Build $VERSION\";git push origin mc-3.1;git tag -a -m \"Tagging $VERSION\" v$VERSION; git push origin --tags v$VERSION;",
     "prepublish": "npm run lint; npm run build"
   },
   "repository": {
@@ -29,7 +30,7 @@
   "homepage": "https://github.com/formio/react-formio#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "formiojs": "^3.16.1",
+    "formiojs": "3.19.4-mc3",
     "lodash": "^4.17.11",
     "prop-types": "^15.7.2",
     "recompose": "^0.30.0"

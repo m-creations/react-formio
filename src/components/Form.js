@@ -41,9 +41,7 @@ export default class Form extends Component {
   componentDidMount = () => {
     const {options = {}, src, url, form} = this.props;
 
-    if (!options.icons) {
-      options.icons = 'fontawesome';
-    }
+    options.icons = 'fontawesome';
 
     if (!options.events) {
       options.events = Form.getDefaultEmitter();

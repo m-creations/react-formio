@@ -22,9 +22,7 @@ export default class extends Component {
   };
 
   componentDidMount = () => {
-    if (!this.props.options.icons) {
-      this.props.options.icons = 'fontawesome';
-    }
+    this.props.options.icons = 'fontawesome';
 
     this.initializeBuilder(this.props);
   };

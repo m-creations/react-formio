@@ -1,6 +1,6 @@
 {
   "name": "react-formio",
-  "version": "3.1.11-mc3",
+  "version": "3.1.11-mc4",
   "description": "React renderer for form.io forms.",
   "main": "lib/index.js",
   "scripts": {

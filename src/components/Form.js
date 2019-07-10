@@ -13,6 +13,7 @@ export default class Form extends Component {
     form: PropTypes.object,
     submission: PropTypes.object,
     options: PropTypes.shape({
+      icons: PropTypes.string,
       readOnly: PropTypes.boolean,
       noAlerts: PropTypes.boolean,
       i18n: PropTypes.object,
@@ -39,6 +40,10 @@ export default class Form extends Component {
 
   componentDidMount = () => {
     const {options = {}, src, url, form} = this.props;
+
+    if (!options.icons) {
+      options.icons = 'fontawesome';
+    }
 
     if (!options.events) {
       options.events = Form.getDefaultEmitter();

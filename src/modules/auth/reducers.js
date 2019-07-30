@@ -55,7 +55,7 @@ export const auth = config => (state = initialState, action) => {
     case type.USER_LOGOUT:
       return {
         ...state,
-        user: null,
+        user: {role: 'guest'},
         isActive: false,
         authenticated: false,
         is: getUserRoles(state.roles),

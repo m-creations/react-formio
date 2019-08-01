@@ -66,7 +66,7 @@ function transformProjectAccess(projectAccess) {
   }), {});
 }
 
-export const initAuth = () => (dispatch) => {
+export const initAuth = (cb) => (dispatch) => {
   const projectUrl = formiojs.getProjectUrl();
 
   dispatch(requestUser());
@@ -93,6 +93,9 @@ export const initAuth = () => (dispatch) => {
     .then(([user]) => {
       if (user) {
         dispatch(receiveUser(user));
+        if (cb && (typeof cb === typeof function(dispatch, user) {})) {
+          cb.call(null, dispatch, user);
+        }
       }
       else {
         dispatch(logoutUser());

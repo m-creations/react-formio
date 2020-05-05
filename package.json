@@ -1,6 +1,6 @@
 {
   "name": "react-formio",
-  "version": "4.2.6-mc1",
+  "version": "4.3.0-mc0",
   "description": "React renderer for form.io forms.",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "babel ./src --ignore=*.spec.js --out-dir ./lib --presets es2015,react,stage-2",
     "lint": "eslint src",
     "watch": "babel ./src --watch --ignore=*.spec.js --out-dir ./lib --presets es2015,react,stage-2",
-    "tag": "VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]');git add -A; git commit -m \"Build $VERSION\";git push origin mc-4.2;git tag v$VERSION;git push origin --tags;",
+    "tag": "VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]');git add -A; git commit -m \"Build $VERSION\";git push origin mc-4.3;git tag v$VERSION;git push origin --tags;",
     "prepublish": "npm run lint && npm run build"
   },
   "repository": {
@@ -32,7 +32,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.1.4",
     "eventemitter2": "^5.0.1",
-    "formiojs": "4.8.1-mc1",
+    "formiojs": "4.9.0-mc1",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2"
   },

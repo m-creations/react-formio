@@ -9,28 +9,35 @@ export const resetSubmissions = (name) => ({
   name,
 });
 
-const requestSubmissions = (name, page, params, formId) => ({
+const requestSubmissions = (name, page, params, formId, requestId) => ({
   type: types.SUBMISSIONS_REQUEST,
   name,
   page,
   params,
   formId,
+  requestId,
 });
 
-const receiveSubmissions = (name, submissions) => ({
+const receiveSubmissions = (name, submissions, requestId) => ({
   type: types.SUBMISSIONS_SUCCESS,
   name,
   submissions,
+  requestId,
 });
 
-const failSubmissions = (name, error) => ({
+const failSubmissions = (name, error, requestId) => ({
   type: types.SUBMISSIONS_FAILURE,
   name,
   error,
+  requestId,
 });
 
+var requestCounter = 0;
+
 export const getSubmissions = (name, page = 0, params = {}, formId, done = () => {}) => (dispatch, getState) => {
-  dispatch(requestSubmissions(name, page, params, formId));
+  const requestId = ++requestCounter;
+  //console.debug(`-> ${requestId} getSubmissions '${name}'`);
+  dispatch(requestSubmissions(name, page, params, formId, requestId));
 
   const {
     limit,
@@ -72,11 +79,11 @@ export const getSubmissions = (name, page = 0, params = {}, formId, done = () =>
 
   return formio.loadSubmissions({params: requestParams})
     .then((result) => {
-      dispatch(receiveSubmissions(name, result));
+      dispatch(receiveSubmissions(name, result, requestId));
       done(null, result);
     })
     .catch((error) => {
-      dispatch(failSubmissions(name, error));
+      dispatch(failSubmissions(name, error, requestId));
       done(error);
     });
 };

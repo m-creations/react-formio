@@ -20,6 +20,7 @@ export function submissions({
       total: 0,
     },
     query,
+    requestId: null,
     select,
     sort,
     submissions: [],
@@ -50,10 +51,18 @@ export function submissions({
             ...state.pagination,
             page: action.page,
           },
+          requestId: action.requestId,
           submissions: [],
         };
       case types.SUBMISSIONS_SUCCESS: {
+        if (state.requestId !== action.requestId) {
+          //console.debug(`<- ${action.requestId} getSubmissions '${name}' result dropped; current requestId = ${state.requestId}`);
+          return state;
+        }
+
         const total = action.submissions.serverCount;
+        //const numPages = Math.ceil(total / state.limit);
+        //console.debug(`<- ${action.requestId} getSubmissions '${name}' returned ${action.submissions.length}/${total} results on page ${state.pagination.page || 1}/${numPages}`);
 
         return {
           ...state,
@@ -66,12 +75,19 @@ export function submissions({
           submissions: action.submissions,
         };
       }
-      case types.SUBMISSIONS_FAILURE:
+      case types.SUBMISSIONS_FAILURE: {
+        if (state.requestId !== action.requestId) {
+          //console.debug(`<- ${action.requestId} getSubmissions '${name}' failure dropped; current requestId = ${state.requestId}`);
+          return state;
+        }
+        //console.debug(`<- ${action.requestId} getSubmissions '${name}' failed:`, action.error);
+
         return {
           ...state,
           error: action.error,
           isActive: false,
         };
+      }
       default:
         return state;
     }
